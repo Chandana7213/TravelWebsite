@@ -4,29 +4,29 @@
 # https://aka.ms/yaml
 
 trigger:
-- main  # This will trigger the pipeline on commits to the main branch
+- main
 
 pool:
-  vmImage: ubuntu-latest  # Running on an Ubuntu-based agent
+  vmImage: 'windows-latest'  # Use Windows instead of Ubuntu
 
 steps:
-# Step 1: Copy all files to artifact staging directory
+# Copy all your files to artifact staging directory
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'  # All your source files (HTML, CSS, JS, etc.)
-    Contents: '**'  # All files in the source folder
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'  # Copy to the artifact staging folder
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-# Step 2: Publish the build artifacts
+# Publish the build artifacts
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # The folder where your build output is located
-    ArtifactName: 'drop'  # The name of the artifact in Azure DevOps
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
 
-# Step 3: Deploy to Azure Web App
+# Deploy to Azure Web App
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Azure subscription 1'  # Make sure this is the exact name of your Azure service connection
-    appType: 'webApp'  # Type of Azure service (Web App in this case)
-    appName: 'MyWebAppp1'  # Ensure this matches the name of your Web App in Azure
-    package: '$(Build.ArtifactStagingDirectory)'  # Path to the artifact package that will be deployed
+    azureSubscription: 'Azure subscription 1'
+    appType: 'webApp'
+    appName: 'MyWebAppp1'
+    package: '$(Build.ArtifactStagingDirectory)'
