@@ -28,5 +28,5 @@ steps:
   inputs:
     azureSubscription: 'Azure subscription 1'
     appType: 'webApp'
-    appName: 'manualdep'
+    appName: 'MyWebAppp1'
     package: '$(Build.ArtifactStagingDirectory)'
