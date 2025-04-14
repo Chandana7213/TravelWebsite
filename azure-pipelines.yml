@@ -7,26 +7,23 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'  # Use Windows instead of Ubuntu
+  vmImage: ubuntu-latest
 
 steps:
-# Copy all your files to artifact staging directory
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-# Publish the build artifacts
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
 
-# Deploy to Azure Web App
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'Azure subscription 1'
+    azureSubscription: 'Azure subscription 1'  # ✅ This must match EXACTLY
     appType: 'webApp'
     appName: 'MyWebAppp1'
     package: '$(Build.ArtifactStagingDirectory)'
