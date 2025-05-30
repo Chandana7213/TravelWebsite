@@ -21,7 +21,7 @@ jobs:
         aws-region: us-east-1  # change if your bucket is in a different region
 
     - name: Sync to S3
-      run: aws s3 sync . s3://your-bucket-name --delete
+      run: aws s3 sync . s3://bucket-trave --delete
 name: Deploy to S3
 
 on:
